@@ -20,6 +20,7 @@ RUN apt-get update && apt-get install -y \
     git wget unzip pkg-config libboost-dev libhdf5-dev \
     default-jre apt-transport-https tabix vim pandoc \
     r-base libimage-magick-perl libgsl-dev libxml2 libxml2-dev \
+    pigz \
     && rm -rf /var/lib/apt/lists/*
 
 # Make directory for all softwares
