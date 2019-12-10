@@ -19,7 +19,7 @@ isSingleEnd = FALSE         ## scTHS-seq uses single end sequencing
 TRIM_METHOD = trim_galore   ## one of trim_galore (default), Trimmomatic or not specified (means DONOT trim)
 
 ## adapter sequence should be speficied if Trimmomatic was used to trim
-## you dont need to specify this if your TRIM_METHOD is trim_galore or not specified
+## you don't need to specify this if your TRIM_METHOD is trim_galore or not specified
 ADAPTER_SEQ = /mnt/isilon/tan_lab/yuw1/local_tools/Trimmomatic-0.39/adapters/NexteraPE-PE.fa
 
 
@@ -37,13 +37,13 @@ MAPPING_METHOD = bwa  ## one of bwa/bowtie/bowtie2
 BWA_OPTS = -t 16
 BWA_INDEX = hg38_genome/hg38_genome.fa
 
-BOWTIE_OPTS = --quiet -p 16 
+BOWTIE_OPTS = --quiet -p 16
 BOWTIE_INDEX = bowtie-1.2.2/indexes/GRCh38/GRCh38_no_alt
 
 BOWTIE2_OPTS = --end-to-end -p 16
 BOWTIE2_INDEX = bowtie2.2.9/indexes/GRCh38/GRCh38
 
-MAPQ = 30  ## filter bam by MAPQ for downstream analysis 
+MAPQ = 30  ## filter bam by MAPQ for downstream analysis
 CELL_MAP_QC = TRUE  ## output mapping stats for cell barcodes
 
 
@@ -54,14 +54,14 @@ CELL_MAP_QC = TRUE  ## output mapping stats for cell barcodes
 PEAK_CALLER = MACS2  ## one of MACS2, BIN, and COMBINED
 
 ## provided extra options for macs2 (NO NEED TO SPECIFY -t, -n, -f -g here)
-MACS2_OPTS = -q 0.01  
+MACS2_OPTS = -q 0.01
 
 BIN_RESL = 5000    ## bin resolution in bp
 CHROM_SIZE_FILE = annotation/chrom_hg38.sizes
 
 
 #######################################
-## annotation files(blacklist, promoters, 
+## annotation files(blacklist, promoters,
 ## enhancers, TSS, etc)
 #######################################
 BLACKLIST = annotation/hg38_blacklist.bed
@@ -101,13 +101,13 @@ prepCello = TRUE  ## generate object for VisCello (for visualization)
 #######################################
 # compare two cluster, for example (as default): every single cluster vs the other
 RUN_DA = TRUE  ## run differential analysis or not
-group1 = 0    ## can be a cluster name (0, 1, 2,...), or 'all' 
+group1 = 0    ## can be a cluster name (0, 1, 2,...), or 'all'
 group2 = rest  ## can be cluster name or 'rest'
 test_use = wilcox  ## one of negbinom, LR, wilcox, t, DESeq2
 
 
 #######################################
-## GO analysis (need to do differential 
+## GO analysis (need to do differential
 ## analysis first)
 #######################################
 RUN_GO = TRUE ## run GO analysis after DA
@@ -121,7 +121,7 @@ GENOME_NAME = hg38
 
 
 #######################################
-## split bam by cluster 
+## split bam by cluster
 ## and output bw and bedgraph files
 #######################################
 SPLIT_BAM2CLUSTER = TRUE
