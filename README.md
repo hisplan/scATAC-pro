@@ -15,6 +15,7 @@ A comprehensive pipeline for single cell ATAC-seq data processing and analysis
       * [Run scATAC-pro step by step](#run-scatac-pro-step-by-step)
       * [Detailed Usage](#detailed-usage)
       * [Run through docker or singularity](#run-through-docker-or-singularity)
+      * [FAQs](#FAQs)
       * [Citation](#citation)
 
 
@@ -95,6 +96,7 @@ Quick start
 
 -   The **output** will be saved under ./output as default
 
+
 Run scATAC-pro step by step
 ---------------------------
 
@@ -151,7 +153,8 @@ Run scATAC-pro step by step
                  -c configure.txt
                  
     $ scATAC-pro -s get_bam4Cells
-                 -i output/mapping_result/pbmc10k.positionsort.bam
+                 -i output/mapping_result/pbmc10k.positionsort.bam,
+                    output/filtered_matrix/YOUR_CELL_CALLER/barcodes.txt
                  -c configure.txt
 
     $ scATAC-pro -s clustering
@@ -207,10 +210,12 @@ Detailed Usage
     ---------------
     OPTIONS
 
-       [-s|--step ANALYSIS_STEP] : run a analytic step (or combinatorial steps) of the scATAC-pro workflow, supportting steps:
+       [-s|--step ANALYSIS_STEP] : run an analytic step (or combinatorial steps) of the scATAC-pro workflow, supportting steps:
           demplx_fastq: perform demultiplexing
                                input: fastq files for both reads and index, separated by comma like:
-                                      fastq1,fastq2,index_fastq1,index_fastq2, index_fastq3...;
+                                      PE1_fastq,PE2_fastq,index1_fastq,inde2_fastq,index3_fastq...;
+                                      differnet index will be embedded in the read name as: 
+                                      @index1_index2_index3:original_read_name
                                output: demultiplexed fastq1 and fastq2 files 
           mapping: perform reads alignment
                              input: fastq files, separated by comma for each paired end
@@ -237,9 +242,9 @@ Detailed Usage
                                input: raw peak barcode sparse matrix file path
                                output: filtered peak by cell matrix
           get_bam4Cells: extract bam file for cell barcodes and calculate mapping stats
-                               input: bam file for all barcodes
-                               output: bam file for cell barcodes and mappign stats
-
+                               input: bam file for all barcodes and a txt file with each line a cell barcode, 
+                                      the two files are saved by a comma
+                               output: bam file and mapping stats (optional) for cell barcodes                          
           clustering: cell clustering
                                input: filtered peak by cell matrix file path
                                output: seurat objects with clustering label in the metadata (.rds file) and 
@@ -328,6 +333,11 @@ singularity exec -H YOUR_WORK_DIR --cleanenv scatac-pro_latest.sif scATAC-pro -s
 be available to scATAC-pro
 
 - **NOTE**: all inputs including data paths specified in configure_user.txt should be available under YOUR_WORK_DIR
+
+FAQs
+--------------
+- [How to proceed using 10x cellranger-atac output?](https://github.com/wbaopaul/scATAC-pro/wiki/FAQs)
+
 
 
 Citation
