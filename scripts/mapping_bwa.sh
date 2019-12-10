@@ -36,19 +36,16 @@ if [[ -z "$BWA_AMB" ]];then
     ${BWA_PATH}/bwa index $BWA_INDEX
 fi
 
+ncore=$(nproc --all)
+ncore=$((${ncore}/2))
 
 if [[ "$isSingleEnd" = "TRUE" ]]; then
-    ${BWA_PATH}/bwa mem $BWA_INDEX $BWA_OPTS ${fastqs[0]}  > ${mapRes_dir}/${OUTPUT_PREFIX}.sam
+    ${BWA_PATH}/bwa mem -t $ncore $BWA_INDEX $BWA_OPTS ${fastqs[0]}  > ${mapRes_dir}/${OUTPUT_PREFIX}.sam
 else
-    ${BWA_PATH}/bwa mem $BWA_INDEX $BWA_OPTS ${fastqs[0]} ${fastqs[1]}  > ${mapRes_dir}/${OUTPUT_PREFIX}.sam
+    ${BWA_PATH}/bwa mem -t $ncore $BWA_INDEX $BWA_OPTS ${fastqs[0]} ${fastqs[1]}  > ${mapRes_dir}/${OUTPUT_PREFIX}.sam
 fi
 
 echo "BWA Mapping Done!"
-
-
-echo "convert to bam ... "
-ncore=$(nproc --all)
-ncore=$((${ncore}/2))
 
 echo "Converting sam to bam ... "
 ${SAMTOOLS_PATH}/samtools view -@ $ncore -h -bS ${mapRes_dir}/${OUTPUT_PREFIX}.sam > ${mapRes_dir}/${OUTPUT_PREFIX}.bam
